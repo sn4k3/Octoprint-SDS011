@@ -6,16 +6,22 @@
  */
 $(function() {
     function SDS011ViewModel(parameters) {
-        var self = this;
+        let self = this;
 
         // assign the injected parameters, e.g.:
         self.loginStateViewModel = parameters[0];
         self.settingsViewModel = parameters[1];
 
         self.onAfterBinding = function() {
-            var url = window.location.href;
+            let url = window.location.href;
             url = url.split("/");
-            url = url[0] + "//" + url[2] + ":" + self.settingsViewModel.settings.plugins.SDS011.port();
+            url = url[0] + "//" + url[2] + ":" + self.settingsViewModel.settings.plugins.SDS011.port() + "?" +
+            "refresh=" + self.settingsViewModel.settings.plugins.SDS011.refresh() +
+            "&showaqi=" + self.settingsViewModel.settings.plugins.SDS011.showaqi() +
+            "&graphwidth=" + self.settingsViewModel.settings.plugins.SDS011.graphwidth() +
+            "&graphheight=" + self.settingsViewModel.settings.plugins.SDS011.graphheight() +
+            "&graphdots=" + self.settingsViewModel.settings.plugins.SDS011.graphdots()
+            ;
             document.getElementById('SDS011frame').src = url;
 		}
     }
